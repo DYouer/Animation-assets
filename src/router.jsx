@@ -2,7 +2,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout"; // 我们稍后会创建这个布局文件
 import HomePage from "./pages/HomePage";
-// import AboutPage from "./pages/AboutPage";
+import AboutPage from "./pages/AboutPage";
 
 // 定义路由
 const router = createBrowserRouter([
@@ -16,6 +16,10 @@ const router = createBrowserRouter([
 				element: <HomePage />,
 			},
 		],
+	},
+	{
+		path: "*",
+		element: <AboutPage />, // 404 页面
 	},
 ]);
 

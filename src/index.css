@@ -1,1 +1,54 @@
 @import "tailwindcss";
+@layer base {
+	/* Hide the native cursor globally so the custom cursor is visible.
+	   - cursor values must NOT be quoted.
+	   - apply to html/body and all elements, with !important to override UA styles.
+	   - restore default on touch devices where hiding the cursor is undesirable. */
+	html, body, * {
+		cursor: none !important;
+	}
+
+	/* On touch-only devices (no hover / coarse pointer), keep the native cursor.
+	   This prevents usability issues on mobile/touchscreen devices. */
+	@media (hover: none) and (pointer: coarse) {
+		html, body, * {
+			cursor: auto !important;
+		}
+	}
+}
+
+@layer components {
+	.dot_bg {
+		/* * 1. 渐变核心：
+   * radial-gradient(circle, ...)
+   * - 'circle' 表示圆形渐变
+   * - var(--dot-color) 2px: 点的颜色和大小 (半径 2px)
+   * - transparent 0: 在 2px 之外立即变为透明 (0 表示过渡的起始点)
+   *
+   * 2. 布局：
+   * background-size: var(--dot-spacing) var(--dot-spacing);
+   * - 这定义了"瓦片"的大小，即每个点所占的网格空间。
+   * - 渐变将在 40px x 40px 的空间内重复平铺。
+   *
+   * 3. 颜色：
+   * background-color: var(--dot-bg-color);
+   * - 这是整个背景的底色。
+   */
+
+		/* --- 可自定义的 CSS 变量 --- */
+		--dot-bg-color: #111827; /* 背景颜色 (e.g., bg-gray-900) */
+		--dot-color: rgba(75, 85, 99, 0.3); /* 点的颜色 (e.g., bg-gray-600) */
+		--dot-size: 1px; /* 点的大小 (半径) */
+		--dot-spacing: 20px; /* 点与点之间的间距 (网格大小) */
+		/* --- -------------------- --- */
+
+		background-color: var(--dot-bg-color);
+		background-image: radial-gradient(
+			circle,
+			var(--dot-color) var(--dot-size),
+			transparent 0 /* 立即变为透明 */
+		);
+		background-size: var(--dot-spacing) var(--dot-spacing);
+	}
+	/* Add any base styles here */
+}
