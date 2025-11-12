@@ -9,13 +9,13 @@ export default function CustomCursor({ variants = "default" }) {
 		default: {},
 		hover: {
 			scale: 1.5,
-			backgroundColor: "rgba(255, 0, 0, 0.8)",
+			backgroundColor: "oklch(52.7% 0.154 150.069)",
 		},
 	};
 	useEffect(() => {
 		const moveCursor = e => {
-			cursorX.set(e.clientX - 16); // Adjust for cursor size
-			cursorY.set(e.clientY - 16); // Adjust for cursor size
+			cursorX.set(e.clientX - 4); // Adjust for cursor size
+			cursorY.set(e.clientY - 4); // Adjust for cursor size
 		};
 		window.addEventListener("mousemove", moveCursor);
 		return () => {
@@ -24,12 +24,16 @@ export default function CustomCursor({ variants = "default" }) {
 	}, [cursorX, cursorY]);
 	return (
 		<motion.div
-			className='w-8 h-8 bg-green-600 rounded-full fixed left-0 top-0 pointer-events-none'
+			className={`${
+				variants === "default" ? "p-2" : "px-4 py-2"
+			}  bg-white rounded-full fixed left-0 top-0 pointer-events-none z-100 text-xs text-white`}
 			variants={cursorVariants}
 			animate={variants}
 			initial='default'
 			// motion values for x/y must be passed via the style prop
 			style={{ x: cursorX, y: cursorY }}
-		/>
+		>
+			{variants === "hover" ? "Detail" : ""}
+		</motion.div>
 	);
 }

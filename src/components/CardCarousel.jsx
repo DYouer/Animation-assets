@@ -35,7 +35,7 @@ const cardData = [
 	},
 ];
 
-function CardCarousel() {
+function CardCarousel({ setCursorVariant }) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const mouseX = useMotionValue(0.5);
 	const mouseY = useMotionValue(0.5);
@@ -143,7 +143,7 @@ function CardCarousel() {
         1. `perspective: 1000px`：在父元素上设置“透视”，告诉浏览器我们正在看一个3D场景。
         2. `relative`：为内部的 `absolute` 卡片提供定位上下文。
       */}
-			<motion.div className='min-w-80 w-[25%] aspect-4/6 relative perspective-[1000px]'>
+			<motion.div className='min-w-80 w-[20%] aspect-4/6 relative perspective-[1000px]'>
 				{/*
           --- AnimatePresence ---
           这是 Framer Motion 的核心。
@@ -172,6 +172,8 @@ function CardCarousel() {
 						initial='initial'
 						animate='animate'
 						exit='exit'
+						onMouseEnter={() => setCursorVariant("hover")}
+						onMouseLeave={() => setCursorVariant("default")}
 					>
 						<motion.div
 							className='w-full h-full border border-white/30 px-6 py-10 '
@@ -205,7 +207,7 @@ function CardCarousel() {
 								>
 									<div className='overflow-hidden '>
 										<motion.span
-											className='inline-block'
+											className='inline-block leading-none'
 											variants={{
 												initial: { y: "100%" },
 												animate: {
@@ -224,7 +226,7 @@ function CardCarousel() {
 									</div>
 									<div className='overflow-hidden '>
 										<motion.span
-											className='inline-block'
+											className='inline-block leading-none'
 											variants={{
 												initial: { y: "100%" },
 												animate: {
@@ -233,7 +235,7 @@ function CardCarousel() {
 													transition: {
 														duration: 0.3,
 														ease: "easeOut",
-														delay: 0.25,
+														delay: 0.3,
 													},
 												},
 											}}
@@ -244,7 +246,7 @@ function CardCarousel() {
 								</div>
 								<div className='overflow-hidden self-end translate-z-12'>
 									<motion.span
-										className='inline-block'
+										className='inline-block leading-none'
 										variants={{
 											initial: { y: "100%" },
 											animate: {
@@ -253,7 +255,7 @@ function CardCarousel() {
 												transition: {
 													duration: 0.3,
 													ease: "easeOut",
-													delay: 0.3,
+													delay: 0.4,
 												},
 											},
 										}}
